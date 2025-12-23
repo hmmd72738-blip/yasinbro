@@ -98,31 +98,131 @@ p{
 }
 
 .link:hover::after{
-    opacity:1;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Yasin Bro | Bio Link</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ICONS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    min-height:100vh;
+    background:linear-gradient(-45deg,#38bdf8,#0ea5e9,#22d3ee,#38bdf8);
+    background-size:400% 400%;
+    animation:bg 12s ease infinite;
+    color:#000;
+}
+
+@keyframes bg{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.container{
+    max-width:430px;
+    margin:auto;
+    padding:30px 20px;
+    text-align:center;
+}
+
+.profile{
+    margin-top:40px;
+}
+
+.profile img{
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    border:5px solid #000;
+    background:#000;
+    box-shadow:0 15px 40px rgba(0,0,0,.4);
+}
+
+.name{
+    margin-top:18px;
+    font-size:28px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+
+.badge{
+    width:20px;
+    height:20px;
+    background:#1d9bf0;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+}
+
+.bio{
+    margin:10px 0 30px;
+    font-size:16px;
+    opacity:.85;
+}
+
+.link{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    background:#000;
+    color:#38bdf8;
+    padding:18px 20px;
+    margin:16px 0;
+    border-radius:18px;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:600;
+    box-shadow:0 12px 30px rgba(0,0,0,.35);
+    transition:.35s;
+}
+
+.link i{
+    font-size:22px;
+    width:26px;
+    text-align:center;
 }
 
 .link:hover{
-    transform:scale(1.05);
-    background:#38bdf8;
-    color:#020617;
+    transform:scale(1.06);
+    background:#020617;
 }
 
 .footer{
-    margin:34px 0 10px;
+    margin:40px 0 10px;
     font-size:13px;
-    opacity:.55;
+    opacity:.7;
 }
 </style>
 </head>
 
 <body>
+
 <div class="container">
 
     <div class="profile">
-        <img src="https://i.imgur.com/8Km9tLL.png">
-        <h1>Yasin Bro</h1>
-        <p>Digital Creator</p>
+        <img src="profile.png" alt="Profile">
     </div>
+
+    <div class="name">
+        Yasin Bro
+        <span class="badge"><i class="fas fa-check"></i></span>
+    </div>
+
+    <div class="bio">Digital Creator</div>
 
     <a class="link" href="https://t.me/idea_hube" target="_blank">
         <i class="fab fa-telegram"></i> Telegram Channel
@@ -137,38 +237,8 @@ p{
     </a>
 
     <div class="footer">
-        © 2025 Yasin Bro · All Rights Reserved
+        © 2025 Yasin Bro · Verified Profile
     </div>
-
-</div>
-
-<script>
-document.querySelectorAll('.link').forEach(btn=>{
-    btn.addEventListener('mousemove',e=>{
-        const r=btn.getBoundingClientRect();
-        btn.style.setProperty('--x',`${e.clientX-r.left}px`);
-        btn.style.setProperty('--y',`${e.clientY-r.top}px`);
-    });
-});
-</script>
-
-</body>
-</html>    background:#38bdf8;
-    color:#000;
-}
-</style>
-</head>
-<body>
-
-<div class="container">
-<img src="https://i.imgur.com/8Km9tLL.png">
-<h2>Yasin Bro</h2>
-<p>Digital Creator</p>
-
-<a href="https://facebook.com">Facebook</a>
-<a href="https://youtube.com">YouTube</a>
-<a href="https://t.me">Telegram</a>
-<a href="https://wa.me/8801XXXXXXXXX">WhatsApp</a>
 
 </div>
 
