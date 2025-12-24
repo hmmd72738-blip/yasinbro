@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Yasin Bro | Horror Bio</title>
+<title>Yasin Bro | Live Horror Bio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
@@ -15,19 +15,20 @@ body{
   justify-content:center;
   align-items:center;
   color:#fff;
+  background:#020617;
 }
 
-/* ===== BACKGROUND ===== */
+/* ===== LIVE BACKGROUND (CANVAS) ===== */
 canvas{
   position:fixed;
   inset:0;
-  z-index:-2;
+  z-index:-3;
 }
 .overlay{
   position:fixed;
   inset:0;
-  background:rgba(2,6,23,.8);
-  z-index:-1;
+  background:radial-gradient(circle at center,rgba(139,0,0,.25),rgba(2,6,23,.9));
+  z-index:-2;
 }
 
 /* ===== CARD ===== */
@@ -38,19 +39,24 @@ canvas{
   border-radius:26px;
   background:rgba(255,255,255,.08);
   backdrop-filter:blur(20px);
-  box-shadow:0 25px 60px rgba(0,0,0,.85);
+  box-shadow:0 30px 80px rgba(0,0,0,.9);
   text-align:center;
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
 }
 
 /* ===== PROFILE ===== */
 .avatar{
   width:150px;height:150px;margin:auto;padding:6px;border-radius:50%;
   background:linear-gradient(45deg,#ff0000,#8b0000,#ff0000);
-  animation:ring 2.5s linear infinite;
+  animation:ring 2.2s linear infinite;
 }
 @keyframes ring{
   0%{box-shadow:0 0 10px red}
-  50%{box-shadow:0 0 40px red}
+  50%{box-shadow:0 0 45px red}
   100%{box-shadow:0 0 10px red}
 }
 .avatar img{
@@ -68,17 +74,17 @@ canvas{
   justify-content:center;
   align-items:center;
   gap:6px;
+  text-shadow:0 0 12px rgba(255,0,0,.6);
 }
 .badge{
   width:18px;height:18px;border-radius:50%;
-  background:#ff0000;
-  display:grid;place-items:center;
-  font-size:11px;
+  background:#ff0000;display:grid;place-items:center;font-size:11px;
 }
 .role{
   margin-top:6px;
   font-size:14px;
   color:#facc15;
+  text-shadow:0 0 10px rgba(250,204,21,.6);
 }
 
 /* ===== LINKS ===== */
@@ -91,7 +97,7 @@ canvas{
   padding:15px;
   border-radius:16px;
   font-size:16px;
-  font-weight:600;
+  font-weight:700;
   text-decoration:none;
   color:#000;
   transition:.35s;
@@ -100,10 +106,11 @@ canvas{
 .page{background:#22c55e}
 .profile{background:#facc15}
 .link:hover{
-  transform:translateY(-3px) scale(1.05);
-  box-shadow:0 0 30px rgba(255,0,0,.8);
+  transform:translateY(-4px) scale(1.06);
+  box-shadow:0 0 35px rgba(255,0,0,.9);
 }
 
+/* ===== FOOTER ===== */
 .footer{
   margin-top:18px;
   font-size:12px;
@@ -152,51 +159,51 @@ canvas{
     <i class="fa-solid fa-user"></i> Facebook Profile
   </a>
 
-  <div class="footer">© 2025 Yasin Bro • Horror Mode</div>
+  <div class="footer">© 2025 Yasin Bro • Live Horror Mode</div>
 </div>
 
 <script>
-/* ===== BACKGROUND ANIMATION ===== */
-const c=document.getElementById("bg"),x=c.getContext("2d");
+/* ===== LIVE BACKGROUND ANIMATION ===== */
+const c=document.getElementById("bg"),ctx2=c.getContext("2d");
 let w,h,pts=[];
 function resize(){
   w=c.width=innerWidth;
   h=c.height=innerHeight;
-  pts=[...Array(160)].map(()=>({
+  pts=[...Array(220)].map(()=>({
     x:Math.random()*w,
     y:Math.random()*h,
-    v:0.8+Math.random()*2,
+    v:0.6+Math.random()*2.5,
     s:1+Math.random()*2
   }));
 }
 onresize=resize; resize();
 
 (function draw(){
-  x.fillStyle="rgba(2,6,23,.45)";
-  x.fillRect(0,0,w,h);
-  x.fillStyle="#ff0000";
+  ctx2.fillStyle="rgba(2,6,23,.55)";
+  ctx2.fillRect(0,0,w,h);
+  ctx2.fillStyle="rgba(255,0,0,.85)";
   pts.forEach(p=>{
     p.y-=p.v;
     if(p.y<0)p.y=h;
-    x.fillRect(p.x,p.y,p.s,p.s*3);
+    ctx2.fillRect(p.x,p.y,p.s,p.s*4);
   });
   requestAnimationFrame(draw);
 })();
 
 /* ===== AUDIO ENGINE ===== */
 const AC=window.AudioContext||window.webkitAudioContext;
-const ctx=new AC();
+const audio=new AC();
 
-/* CLICK SOUND */
+/* BUTTON CLICK */
 function clickSound(){
-  const o=ctx.createOscillator(),g=ctx.createGain();
-  o.type="square";o.frequency.value=1000;
+  const o=audio.createOscillator(),g=audio.createGain();
+  o.type="square";o.frequency.value=1100;
   g.gain.value=0.06;
-  o.connect(g);g.connect(ctx.destination);
-  o.start();o.stop(ctx.currentTime+.07);
+  o.connect(g);g.connect(audio.destination);
+  o.start();o.stop(audio.currentTime+.06);
 }
 document.querySelectorAll(".link").forEach(b=>{
-  b.onclick=()=>{ctx.resume();clickSound();}
+  b.onclick=()=>{audio.resume();clickSound();}
 });
 
 /* ===== HORROR EFFECT ===== */
@@ -206,41 +213,40 @@ const flash=document.getElementById("flash");
 function shake(){
   document.body.animate([
     {transform:"translate(0,0)"},
-    {transform:"translate(-12px,8px)"},
-    {transform:"translate(10px,-8px)"},
-    {transform:"translate(-8px,6px)"},
+    {transform:"translate(-14px,10px)"},
+    {transform:"translate(12px,-10px)"},
+    {transform:"translate(-10px,8px)"},
     {transform:"translate(0,0)"}
-  ],{duration:450});
+  ],{duration:500});
 }
 
 function horrorSound(){
-  const o1=ctx.createOscillator();
-  const o2=ctx.createOscillator();
-  const g=ctx.createGain();
+  const o1=audio.createOscillator();
+  const o2=audio.createOscillator();
+  const g=audio.createGain();
 
   o1.type="sawtooth";
   o2.type="triangle";
+  o1.frequency.value=160;
+  o2.frequency.value=35;
 
-  o1.frequency.value=140;
-  o2.frequency.value=40;
+  o1.frequency.exponentialRampToValueAtTime(18,audio.currentTime+2.3);
+  o2.frequency.exponentialRampToValueAtTime(14,audio.currentTime+2.3);
 
-  o1.frequency.exponentialRampToValueAtTime(18,ctx.currentTime+2);
-  o2.frequency.exponentialRampToValueAtTime(14,ctx.currentTime+2);
+  g.gain.setValueAtTime(0.001,audio.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.35,audio.currentTime+.35);
+  g.gain.exponentialRampToValueAtTime(0.001,audio.currentTime+2.7);
 
-  g.gain.setValueAtTime(0.001,ctx.currentTime);
-  g.gain.exponentialRampToValueAtTime(0.3,ctx.currentTime+.3);
-  g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+2.3);
-
-  o1.connect(g);o2.connect(g);g.connect(ctx.destination);
+  o1.connect(g);o2.connect(g);g.connect(audio.destination);
   o1.start();o2.start();
-  o1.stop(ctx.currentTime+2.4);o2.stop(ctx.currentTime+2.4);
+  o1.stop(audio.currentTime+2.8);o2.stop(audio.currentTime+2.8);
 }
 
 function heartbeat(){
-  const o=ctx.createOscillator(),g=ctx.createGain();
+  const o=audio.createOscillator(),g=audio.createGain();
   o.type="sine";o.frequency.value=55;
-  g.gain.value=0.15;
-  o.connect(g);g.connect(ctx.destination);
+  g.gain.value=0.18;
+  o.connect(g);g.connect(audio.destination);
   o.start();
   setTimeout(()=>o.stop(),160);
 }
@@ -249,15 +255,15 @@ function heartbeat(){
 document.body.addEventListener("click",()=>{
   if(triggered) return;
   triggered=true;
-  ctx.resume();
+  audio.resume();
 
-  flash.style.opacity=.9;
-  setTimeout(()=>flash.style.opacity=0,120);
+  flash.style.opacity=.95;
+  setTimeout(()=>flash.style.opacity=0,140);
 
   shake();
   horrorSound();
-  setTimeout(heartbeat,500);
-  setTimeout(heartbeat,900);
+  setTimeout(heartbeat,600);
+  setTimeout(heartbeat,1000);
 },{once:true});
 </script>
 
